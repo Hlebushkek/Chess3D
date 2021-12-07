@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class ChessPieceAbstract : MonoBehaviour
 {
-    protected ChessBoard board;
+    protected ChessBoardAbstract board;
     protected Vector2[] moveOffsets;
-    virtual protected void Awake()
+    protected virtual void Start()
     {
-        board = FindObjectOfType<ChessBoard>();
+        board = FindObjectOfType<ChessBoardAbstract>();
     }
-    private void HighlightPossibleMove()
+    public void HighlightPossibleMoves()
     {
         board.HighlightCells(transform.position, moveOffsets);
     }
-    private void MakeMove()
-    {
-
-    }
     private void OnMouseDown() {
         Debug.Log("Click");
-        HighlightPossibleMove();
+        HighlightPossibleMoves();
     }
 }

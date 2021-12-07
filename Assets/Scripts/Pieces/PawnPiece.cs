@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class PawnPiece : ChessPieceAbstract
 {
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
-
-        moveOffsets = new Vector2[2] {new Vector2(0, 1),new Vector2(0, 2)};
+        base.Start();
+        moveOffsets = new Vector2[2] {new Vector2(0, 1), new Vector2(0, 2)};
     }
 }

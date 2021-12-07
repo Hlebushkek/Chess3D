@@ -373,10 +373,17 @@
 "Assets/Photon/PhotonLibs/WebSocket/SocketWebTcp.cs"
 "Assets/Photon/PhotonLibs/WebSocket/WebSocket.cs"
 "Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/ConnectAndJoinRandomLb.cs"
-"Assets/Scripts/ChessBoard.cs"
+"Assets/Scripts/ChessBoardAbstract.cs"
+"Assets/Scripts/GameInitializer.cs"
+"Assets/Scripts/MenuScript.cs"
+"Assets/Scripts/MultiplayerChessBoard.cs"
+"Assets/Scripts/MultiplayerPiecesController.cs"
 "Assets/Scripts/NetworkManager.cs"
+"Assets/Scripts/Pieces/BishopPiece.cs"
 "Assets/Scripts/Pieces/ChessPieceAbstract.cs"
 "Assets/Scripts/Pieces/PawnPiece.cs"
+"Assets/Scripts/PiecesController.cs"
+"Assets/Scripts/SingleplayerChessBoard.cs"
 -langversion:9.0
 
 /deterministic
