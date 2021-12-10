@@ -8,6 +8,7 @@ public class GameInitializer : MonoBehaviour
     [Header("Game depended pref")]
     [SerializeField] private PiecesController piecesController;
     [SerializeField] private MultiplayerChessBoard multiplayerBoardPref;
+    [SerializeField] private ClickHandle clickHandle;
 
     [SerializeField] private NetworkManager networkMngr;
     private void Awake()
@@ -20,6 +21,7 @@ public class GameInitializer : MonoBehaviour
         {
             PhotonNetwork.Instantiate(multiplayerBoardPref.name, new Vector3(0, 0, 0), Quaternion.identity);
             PhotonNetwork.Instantiate(piecesController.name, new Vector3(0, 0, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(clickHandle.name, new Vector3(0, 0, 0), Quaternion.identity);
         }
     }
 }

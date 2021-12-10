@@ -332,6 +332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   piecesController: {fileID: 2964772731398970069, guid: 4ff3a82d762384d4683ecce0585e11ab, type: 3}
   multiplayerBoardPref: {fileID: 7632898165976790315, guid: 78c557d4ec88c416d839ff9b59aee14b, type: 3}
+  clickHandle: {fileID: 1219348814634764307, guid: 822eb2463ce9444eb8bb7b9b711a1a8f, type: 3}
   networkMngr: {fileID: 0}
 --- !u!4 &988308385
 Transform:

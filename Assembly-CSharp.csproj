@@ -38,8 +38,10 @@
   <ItemGroup>
      <Compile Include="Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/ConnectAndJoinRandomLb.cs" />
      <Compile Include="Assets/Photon/PhotonLibs/WebSocket/SocketWebTcp.cs" />
+     <Compile Include="Assets/Scripts/Pieces/RookPiece.cs" />
      <Compile Include="Assets/Photon/PhotonChat/Demos/DemoChat/ChatAppIdCheckerUI.cs" />
      <Compile Include="Assets/Photon/PhotonChat/Demos/DemoChat/AppSettingsExtensions.cs" />
+     <Compile Include="Assets/Scripts/Pieces/BishopPiece.cs" />
      <Compile Include="Assets/Scripts/MenuScript.cs" />
      <Compile Include="Assets/Scripts/Pieces/ChessPieceAbstract.cs" />
      <Compile Include="Assets/Photon/PhotonChat/Demos/DemoChat/ChannelSelector.cs" />
@@ -52,15 +54,18 @@
      <Compile Include="Assets/Photon/PhotonChat/Demos/Common/TextButtonTransition.cs" />
      <Compile Include="Assets/Photon/PhotonChat/Demos/DemoChat/NamePickGui.cs" />
      <Compile Include="Assets/Scripts/Pieces/PawnPiece.cs" />
+     <Compile Include="Assets/Scripts/Pieces/KingPiece.cs" />
      <Compile Include="Assets/Scripts/ChessBoardAbstract.cs" />
      <Compile Include="Assets/Scripts/PiecesController.cs" />
      <Compile Include="Assets/Photon/PhotonChat/Demos/DemoChat/IgnoreUiRaycastWhenInactive.cs" />
      <Compile Include="Assets/Photon/PhotonChat/Demos/DemoChat/FriendItem.cs" />
+     <Compile Include="Assets/Scripts/Pieces/KnightPiece.cs" />
+     <Compile Include="Assets/Scripts/Pieces/QueenPiece.cs" />
      <Compile Include="Assets/Photon/PhotonChat/Demos/DemoChat/ChatGui.cs" />
      <Compile Include="Assets/Photon/PhotonChat/Demos/Common/TextToggleIsOnTransition.cs" />
+     <Compile Include="Assets/Scripts/ClickHandle.cs" />
      <Compile Include="Assets/Photon/PhotonChat/Demos/Common/OnStartDelete.cs" />
      <Compile Include="Assets/Scripts/MultiplayerPiecesController.cs" />
-     <Compile Include="Assets/Scripts/Pieces/BishopPiece.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.xml" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />

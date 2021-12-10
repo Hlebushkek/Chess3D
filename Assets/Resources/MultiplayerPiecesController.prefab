@@ -69,3 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pawnPref: {fileID: 3545879983778662955, guid: 28467f8dfcb7a4ce8bd8144ff09d4287, type: 3}
   bishopPref: {fileID: 9042327542540530445, guid: e59eadff3c34148fe98d89fae3d52bcc, type: 3}
+  rookPref: {fileID: 7131106887534485967, guid: dcc97225d3e3445049fd78e5d0680af8, type: 3}
+  knightPref: {fileID: -1155563729074023756, guid: 4378220d70e344e98b327cd30bb99c42, type: 3}
+  queenPref: {fileID: 6746155232318346121, guid: 3212e233b0d794a4281d5152e31994be, type: 3}
+  kingPref: {fileID: 1801934997098392856, guid: d5365f9bc328b4461a594596394b10e6, type: 3}
