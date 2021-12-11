@@ -7,26 +7,20 @@ using Photon.Pun;
 public class MultiplayerPiecesController : PiecesController
 {
     private PhotonView photonView;
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         photonView = GetComponent<PhotonView>();
     }
-    public override void MovePiece(Vector3 piecePos)
+    public override void StartMovingPiece(Vector3 cellPos)
     {
-        photonView.RPC(nameof(MovePieceRPC), RpcTarget.AllBuffered, new object[] {piecePos});
+        photonView = GetComponent<PhotonView>();
+        photonView.RPC(nameof(StartMovingPieceRPC), RpcTarget.AllBuffered, new object[] {cellPos});
     }
     [PunRPC]
-    private void MovePieceRPC(Vector3 piecePos)
+    private void StartMovingPieceRPC(Vector3 cellPos)
     {
-        foreach (ChessPieceAbstract piece in whitePieces)
-        {
-            if(piece.transform.position == piecePos)
-            {
-                Debug.Log("Multiplayer move");
-                piece.transform.position += new Vector3(0, 0, 2);
-                return;
-            }
-        }
+        Debug.LogWarning("Move to" + cellPos);
+        base.StartMovingPiece(cellPos);
     }
 }

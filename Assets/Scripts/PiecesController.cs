@@ -4,19 +4,27 @@ using UnityEngine;
 
 public abstract class PiecesController : MonoBehaviour
 {
-    [SerializeField] private PawnPiece pawnPref;
-    [SerializeField] private BishopPiece bishopPref;
-    [SerializeField] private RookPiece rookPref;
-    [SerializeField] private KnightPiece knightPref;
-    [SerializeField] private QueenPiece queenPref;
-    [SerializeField] private KingPiece kingPref;
+    [Header("Pieces")]
+    [SerializeField] protected PawnPiece pawnPref;
+    [SerializeField] protected BishopPiece bishopPref;
+    [SerializeField] protected RookPiece rookPref;
+    [SerializeField] protected KnightPiece knightPref;
+    [SerializeField] protected QueenPiece queenPref;
+    [SerializeField] protected KingPiece kingPref;
+    [Header("Materials")]
+    [SerializeField] protected Material whitePieceM;
+    [SerializeField] protected Material blackPieceM;
+    [SerializeField] protected Material highlightM;
+
     protected List<ChessPieceAbstract> whitePieces = new List<ChessPieceAbstract>();
     protected List<ChessPieceAbstract> blackPieces = new List<ChessPieceAbstract>();
-    protected virtual void Start()
+    protected ChessPieceAbstract selectedPiece;
+    protected virtual void Awake()
     {
         for (int i = 0; i < 8; i++)
         {
-            whitePieces.Add(Instantiate(pawnPref, new Vector3(i, 0, 1), Quaternion.identity));
+            InstantiatePiece(pawnPref, new Vector3(i, 0, 1), false);
+            InstantiatePiece(pawnPref, new Vector3(i, 0, 1), true);
         }
 
         whitePieces.Add(Instantiate(bishopPref, new Vector3(2, 0, 0), Quaternion.identity));
@@ -32,15 +40,74 @@ public abstract class PiecesController : MonoBehaviour
 
         whitePieces.Add(Instantiate(kingPref, new Vector3(4, 0, 0), Quaternion.identity));
     }
-    public virtual void MovePiece(Vector3 piecePos)
+    private void InstantiatePiece(ChessPieceAbstract piece, Vector3 position, bool team)
     {
+        var obj = Instantiate(piece);
+
+        Material m;
+
+        if (!team)
+        {
+            m = whitePieceM;
+            obj.transform.SetParent(this.transform.GetChild(0));
+        }
+        else
+        {
+            m = blackPieceM;
+            obj.transform.SetParent(this.transform.GetChild(1));
+        }
+
+        for (int i = 0; i < obj.transform.childCount; i++)
+        {
+            obj.transform.GetChild(i).GetComponent<MeshRenderer>().material = m;
+        }
+
+        obj.transform.localPosition = position;
+    }
+    public virtual void SelectPiece(ChessPieceAbstract piece)
+    {
+        selectedPiece = piece;
+        for (int i = 0; i < selectedPiece.transform.childCount; i++)
+        {
+            selectedPiece.transform.GetChild(i).GetComponent<MeshRenderer>().material = highlightM;
+        }
+    }
+    public virtual void SelectPiece(Vector3 piecePos)
+    {
+        Debug.LogWarning("Count = " + whitePieces.Count);
         foreach (ChessPieceAbstract piece in whitePieces)
         {
-            if(piece.transform.position == piecePos)
+            Debug.LogWarning(piece.transform.position + "  ?  " + piecePos);
+            if (piece.transform.position == piecePos)
             {
-                piece.transform.position += new Vector3(0, 0, 2);
+                selectedPiece = piece;
+                for (int i = 0; i < selectedPiece.transform.childCount; i++)
+                {
+                    selectedPiece.transform.GetChild(i).GetComponent<MeshRenderer>().material = highlightM;
+                }
                 return;
             }
         }
+        Debug.LogWarning("Cant find piece to select");
+    }
+    public void ClearHighlight()
+    {
+        if (selectedPiece == null) return;
+        
+        for (int i = 0; i < selectedPiece.transform.childCount; i++)
+        {
+            selectedPiece.transform.GetChild(i).GetComponent<MeshRenderer>().material = whitePieceM;
+        }
+        selectedPiece = null;
+    }
+    public virtual void StartMovingPiece(Vector3 cellPos)
+    {
+        if (selectedPiece == null)
+        {
+            Debug.LogWarning("Piece is NULL");
+            return;
+        }
+
+        selectedPiece.transform.position = cellPos;
     }
 }

@@ -25,7 +25,7 @@ public class ClickHandle : MonoBehaviour
                 raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
                 castRay = true;
             }
-            
+
             if (castRay)
             {
                 RaycastHit raycastHit;
@@ -34,7 +34,11 @@ public class ClickHandle : MonoBehaviour
                 {
                     if (raycastHit.transform.TryGetComponent<ChessPieceAbstract>(out ChessPieceAbstract piece))
                     {
-                        board.HighlightCells(piece.transform.position, piece.GetMoveOffsets());
+                        board.HighlightCells(piece);
+                    }
+                    else if (raycastHit.transform.gameObject.tag == "BoardCell")
+                    {
+                        board.MovePiece(raycastHit.transform.position);
                     }
                 }
             }

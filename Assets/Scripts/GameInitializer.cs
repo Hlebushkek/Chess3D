@@ -19,8 +19,8 @@ public class GameInitializer : MonoBehaviour
     {
         if (PhotonNetwork.CurrentRoom.PlayerCount < 2)
         {
-            PhotonNetwork.Instantiate(multiplayerBoardPref.name, new Vector3(0, 0, 0), Quaternion.identity);
             PhotonNetwork.Instantiate(piecesController.name, new Vector3(0, 0, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(multiplayerBoardPref.name, new Vector3(0, 0, 0), Quaternion.identity);
             PhotonNetwork.Instantiate(clickHandle.name, new Vector3(0, 0, 0), Quaternion.identity);
         }
     }
