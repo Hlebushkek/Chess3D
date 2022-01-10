@@ -39,6 +39,7 @@ public abstract class ChessBoardAbstract : MonoBehaviour
     }
     protected void Highlight(Vector3 piecePos, Vector2[][] moveOffsets, Team team)
     {
+        piecesController = FindObjectOfType<PiecesController>();
         piecesController.SelectPiece(piecePos);
         
         foreach (Vector2[] offsetsLine in moveOffsets)
