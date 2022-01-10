@@ -376,6 +376,7 @@
 "Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/ConnectAndJoinRandomLb.cs"
 "Assets/Scripts/Board/ChessBoardAbstract.cs"
 "Assets/Scripts/Board/MultiplayerChessBoard.cs"
+"Assets/Scripts/BoardCell.cs"
 "Assets/Scripts/ClickHandle.cs"
 "Assets/Scripts/GameInitializer.cs"
 "Assets/Scripts/MenuScript.cs"

@@ -7,12 +7,12 @@ using System.Linq;
 public abstract class ChessBoardAbstract : MonoBehaviour
 {
     [Header("Cells Prop")]
-    [SerializeField] private GameObject boardCellPref;
+    [SerializeField] private BoardCell boardCell;
     [SerializeField] protected Material blackM, whiteM;
     [SerializeField] protected Material highlightM;
 
     protected PiecesController piecesController;
-    protected Transform[,] boardCells = new Transform[8, 8];
+    protected BoardCell[,] boardCells = new BoardCell[8, 8];
     protected List<Vector2Int> highlightedCells = new List<Vector2Int>();
 
     protected virtual void Awake()
@@ -21,9 +21,10 @@ public abstract class ChessBoardAbstract : MonoBehaviour
         {
             for (int j = 0; j < 8; j++)
             {
-                boardCells[i,j] = Instantiate(boardCellPref).transform;
-                boardCells[i,j].localPosition = new Vector3(i, 0, j);
+                boardCells[i,j] = Instantiate(boardCell);
+                boardCells[i,j].transform.localPosition = new Vector3(i, 0, j);
                 boardCells[i,j].GetComponent<MeshRenderer>().material = (i%8+j) % 2 == 0? blackM : whiteM;
+                boardCells[i,j].transform.SetParent(this.transform);
             }
         }
     }
@@ -31,25 +32,42 @@ public abstract class ChessBoardAbstract : MonoBehaviour
     {
         piecesController = FindObjectOfType<PiecesController>();
     }
-    public virtual void HighlightCells(ChessPieceAbstract piece)
+    public virtual void HighlightCells(ChessPieceAbstract piece, Team team)
     {
         ClearHighlight();
-        Highlight(piece.transform.position, piece.GetMoveOffsets());
+        Highlight(piece.transform.position, piece.GetMoveOffsets(), team);
     }
-    protected void Highlight(Vector3 piecePos, Vector2[] moveOffsets)
+    protected void Highlight(Vector3 piecePos, Vector2[][] moveOffsets, Team team)
     {
-        piecesController = FindObjectOfType<PiecesController>();
         piecesController.SelectPiece(piecePos);
         
-        foreach (Vector2 offset in moveOffsets)
+        foreach (Vector2[] offsetsLine in moveOffsets)
         {
-            int x = (int)(piecePos.x + offset.x);
-            int z = (int)(piecePos.z + offset.y);
-
-            if (x >= 0 && z >= 0 && x < 8 && z < 8)
+            foreach (Vector2 offset in offsetsLine)
             {
-                boardCells[x, z].GetComponent<MeshRenderer>().material = highlightM;
-                highlightedCells.Add(new Vector2Int(x, z));
+                int x = 0;
+                int z = 0;
+
+                if (team == Team.White)
+                {
+                    x = (int)(piecePos.x + offset.x);
+                    z = (int)(piecePos.z + offset.y);
+                }
+                else if (team == Team.Black)
+                {
+                    x = (int)(piecePos.x - offset.x);
+                    z = (int)(piecePos.z - offset.y);
+                }
+
+                if (x >= 0 && z >= 0 && x < 8 && z < 8)
+                {
+                    //Debug.Log(x +";"+ z + "   " + boardCells[x,z].isEmpty());
+                    if (boardCells[x,z].isEmpty())
+                    {
+                        boardCells[x, z].GetComponent<MeshRenderer>().material = highlightM;
+                        highlightedCells.Add(new Vector2Int(x, z));
+                    } else break;
+                }
             }
         }
     }
@@ -78,4 +96,19 @@ public abstract class ChessBoardAbstract : MonoBehaviour
         if (highlightedCells.Contains(new Vector2Int((int)cell.x, (int)cell.z))) return true;
         return false;
     }
+    public void setEmpty(int x, int z)
+    {
+        boardCells[x, z].setEmpty();
+    }
+    public void setOccupied(int x, int z)
+    {
+        boardCells[x, z].setOccupied();
+    }
+}
+
+public enum Team: byte 
+{
+    White,
+    Black,
+    Spectator
 }

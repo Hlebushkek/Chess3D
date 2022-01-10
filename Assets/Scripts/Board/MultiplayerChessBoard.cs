@@ -7,25 +7,25 @@ using Photon.Pun;
 public class MultiplayerChessBoard : ChessBoardAbstract
 {
     private PhotonView photonView;
-
     protected override void Awake()
     {
         base.Awake();
         photonView = GetComponent<PhotonView>();
     }
-    public override void HighlightCells(ChessPieceAbstract piece)
-    {
-        photonView.RPC(nameof(HighlightCellsRPC), RpcTarget.AllBuffered, new object[] {piece.transform.position, piece.GetMoveOffsets()});
-    }
     
+    public override void HighlightCells(ChessPieceAbstract piece, Team team)
+    {
+        photonView.RPC(nameof(HighlightCellsRPC), RpcTarget.AllBuffered, new object[] {piece.transform.position, piece.GetMoveOffsets(), (byte)team});
+    }
     [PunRPC]
-    private void HighlightCellsRPC(Vector3 piecePos, Vector2[] moveOffsets)
+    private void HighlightCellsRPC(Vector3 piecePos, Vector2[][] moveOffsets, byte team)
     {
         Debug.LogWarning("PiecePos = " + piecePos);
         ClearHighlight();
-
-        base.Highlight(piecePos, moveOffsets);
+        Team t = (Team)team;
+        base.Highlight(piecePos, moveOffsets, t);
     }
+
     public override void MovePiece(Vector3 cellPos)
     {
         photonView.RPC(nameof(MovePieceRPC), RpcTarget.AllBuffered, new object[] {cellPos});

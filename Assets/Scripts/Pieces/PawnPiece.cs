@@ -6,6 +6,6 @@ public class PawnPiece : ChessPieceAbstract
 {
     protected override void Start()
     {
-        moveOffsets = new Vector2[2] {new Vector2(0, 1), new Vector2(0, 2)};
+        moveOffsets = new Vector2[][]{new Vector2[]{new Vector2(0, 1), new Vector2(0, 2)}};
     }
 }

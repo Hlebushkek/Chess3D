@@ -19,42 +19,56 @@ public abstract class PiecesController : MonoBehaviour
     protected List<ChessPieceAbstract> whitePieces = new List<ChessPieceAbstract>();
     protected List<ChessPieceAbstract> blackPieces = new List<ChessPieceAbstract>();
     protected ChessPieceAbstract selectedPiece;
+    protected ChessBoardAbstract board;
     protected virtual void Awake()
     {
+        board = GameObject.FindObjectOfType<ChessBoardAbstract>();
+
         for (int i = 0; i < 8; i++)
         {
-            InstantiatePiece(pawnPref, new Vector3(i, 0, 1), false);
-            InstantiatePiece(pawnPref, new Vector3(i, 0, 1), true);
+            InstantiatePiece(pawnPref, new Vector3(i, 0, 1), Team.White);
+            InstantiatePiece(pawnPref, new Vector3(i, 0, 1), Team.Black);
         }
+        
+        InstantiatePiece(bishopPref, new Vector3(2, 0, 0), Team.White);
+        InstantiatePiece(bishopPref, new Vector3(5, 0, 0), Team.White);
+        InstantiatePiece(bishopPref, new Vector3(2, 0, 0), Team.Black);
+        InstantiatePiece(bishopPref, new Vector3(5, 0, 0), Team.Black);
 
-        whitePieces.Add(Instantiate(bishopPref, new Vector3(2, 0, 0), Quaternion.identity));
-        whitePieces.Add(Instantiate(bishopPref, new Vector3(5, 0, 0), Quaternion.identity));
+        InstantiatePiece(rookPref, new Vector3(0, 0, 0), Team.White);
+        InstantiatePiece(rookPref, new Vector3(7, 0, 0), Team.White);
+        InstantiatePiece(rookPref, new Vector3(0, 0, 0), Team.Black);
+        InstantiatePiece(rookPref, new Vector3(7, 0, 0), Team.Black);
 
-        whitePieces.Add(Instantiate(rookPref, new Vector3(0, 0, 0), Quaternion.identity));
-        whitePieces.Add(Instantiate(rookPref, new Vector3(7, 0, 0), Quaternion.identity));
+        InstantiatePiece(knightPref, new Vector3(1, 0, 0), Team.White);
+        InstantiatePiece(knightPref, new Vector3(6, 0, 0), Team.White);
+        InstantiatePiece(knightPref, new Vector3(1, 0, 0), Team.Black);
+        InstantiatePiece(knightPref, new Vector3(6, 0, 0), Team.Black);
 
-        whitePieces.Add(Instantiate(knightPref, new Vector3(1, 0, 0), Quaternion.identity));
-        whitePieces.Add(Instantiate(knightPref, new Vector3(6, 0, 0), Quaternion.identity));
+        InstantiatePiece(queenPref, new Vector3(4, 0, 0), Team.White);
+        InstantiatePiece(queenPref, new Vector3(4, 0, 0), Team.Black);
 
-        whitePieces.Add(Instantiate(queenPref, new Vector3(3, 0, 0), Quaternion.identity));
-
-        whitePieces.Add(Instantiate(kingPref, new Vector3(4, 0, 0), Quaternion.identity));
+        InstantiatePiece(kingPref, new Vector3(3, 0, 0), Team.White);
+        InstantiatePiece(kingPref, new Vector3(3, 0, 0), Team.Black);
     }
-    private void InstantiatePiece(ChessPieceAbstract piece, Vector3 position, bool team)
+    private void InstantiatePiece(ChessPieceAbstract piece, Vector3 position, Team team)
     {
         var obj = Instantiate(piece);
+        obj.setTeam(team);
 
-        Material m;
+        Material m = whitePieceM;
 
-        if (!team)
+        if (team == Team.White)
         {
             m = whitePieceM;
             obj.transform.SetParent(this.transform.GetChild(0));
+            whitePieces.Add(obj);
         }
-        else
+        else if (team == Team.Black)
         {
             m = blackPieceM;
             obj.transform.SetParent(this.transform.GetChild(1));
+            blackPieces.Add(obj);
         }
 
         for (int i = 0; i < obj.transform.childCount; i++)
@@ -63,6 +77,8 @@ public abstract class PiecesController : MonoBehaviour
         }
 
         obj.transform.localPosition = position;
+
+        board.setOccupied((int)position.x, (int)position.z);
     }
     public virtual void SelectPiece(ChessPieceAbstract piece)
     {
@@ -74,10 +90,10 @@ public abstract class PiecesController : MonoBehaviour
     }
     public virtual void SelectPiece(Vector3 piecePos)
     {
-        Debug.LogWarning("Count = " + whitePieces.Count);
+        //Debug.LogWarning("Count = " + whitePieces.Count);
         foreach (ChessPieceAbstract piece in whitePieces)
         {
-            Debug.LogWarning(piece.transform.position + "  ?  " + piecePos);
+            //Debug.LogWarning(piece.transform.position + "  ?  " + piecePos);
             if (piece.transform.position == piecePos)
             {
                 selectedPiece = piece;
@@ -108,6 +124,8 @@ public abstract class PiecesController : MonoBehaviour
             return;
         }
 
+        board.setEmpty((int)selectedPiece.transform.position.x, (int)selectedPiece.transform.position.z);
         selectedPiece.transform.position = cellPos;
+        board.setOccupied((int)cellPos.x, (int)cellPos.z);
     }
 }

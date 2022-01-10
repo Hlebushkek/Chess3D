@@ -34,7 +34,7 @@ public class ClickHandle : MonoBehaviour
                 {
                     if (raycastHit.transform.TryGetComponent<ChessPieceAbstract>(out ChessPieceAbstract piece))
                     {
-                        board.HighlightCells(piece);
+                        board.HighlightCells(piece, piece.getTeam());
                     }
                     else if (raycastHit.transform.gameObject.tag == "BoardCell")
                     {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2182810151375014785}
   - component: {fileID: 2182810151375014786}
   - component: {fileID: 2182810151375014787}
+  - component: {fileID: 5188805291941184359}
   m_Layer: 0
   m_Name: BoardCellPref
   m_TagString: BoardCell
@@ -97,3 +98,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5188805291941184359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2182810151375014796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36663c39cc6914c1da98645ef98e812a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
