@@ -1625,7 +1625,7 @@ ScriptsOnlyBuild:
     className: PositionAsUV1
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 3809ba0f55bf875d0c9751ee4c4313fa
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BoardCell
@@ -2013,6 +2013,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CameraManager
   platform: 2
   scenePathNames:
   - Assets/Scenes/MenuScene.unity

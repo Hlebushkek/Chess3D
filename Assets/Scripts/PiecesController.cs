@@ -56,51 +56,45 @@ public abstract class PiecesController : MonoBehaviour
         var obj = Instantiate(piece);
         obj.setTeam(team);
 
-        Material m = whitePieceM;
-
         if (team == Team.White)
         {
-            m = whitePieceM;
+            obj.SetMaterials(whitePieceM, highlightM);
             obj.transform.SetParent(this.transform.GetChild(0));
             whitePieces.Add(obj);
         }
         else if (team == Team.Black)
         {
-            m = blackPieceM;
+            obj.SetMaterials(blackPieceM, highlightM);
             obj.transform.SetParent(this.transform.GetChild(1));
             blackPieces.Add(obj);
         }
 
-        for (int i = 0; i < obj.transform.childCount; i++)
-        {
-            obj.transform.GetChild(i).GetComponent<MeshRenderer>().material = m;
-        }
+        obj.deselectSelf();
 
         obj.transform.localPosition = position;
 
-        board.setOccupied((int)position.x, (int)position.z);
+        board.setOccupied((int)obj.transform.position.x, (int)obj.transform.position.z, team);
     }
     public virtual void SelectPiece(ChessPieceAbstract piece)
     {
         selectedPiece = piece;
-        for (int i = 0; i < selectedPiece.transform.childCount; i++)
-        {
-            selectedPiece.transform.GetChild(i).GetComponent<MeshRenderer>().material = highlightM;
-        }
+        piece.selectSelf();
     }
     public virtual void SelectPiece(Vector3 piecePos)
     {
         //Debug.LogWarning("Count = " + whitePieces.Count);
-        foreach (ChessPieceAbstract piece in whitePieces)
+        List<ChessPieceAbstract> piecesSet = null;
+
+        if (TeamManager.GetCurrentTurnTeam() == Team.White) piecesSet = whitePieces;
+        else if (TeamManager.GetCurrentTurnTeam() == Team.Black) piecesSet = blackPieces;
+
+        foreach (ChessPieceAbstract piece in piecesSet)
         {
             //Debug.LogWarning(piece.transform.position + "  ?  " + piecePos);
             if (piece.transform.position == piecePos)
             {
                 selectedPiece = piece;
-                for (int i = 0; i < selectedPiece.transform.childCount; i++)
-                {
-                    selectedPiece.transform.GetChild(i).GetComponent<MeshRenderer>().material = highlightM;
-                }
+                piece.selectSelf();
                 return;
             }
         }
@@ -110,11 +104,25 @@ public abstract class PiecesController : MonoBehaviour
     {
         if (selectedPiece == null) return;
         
-        for (int i = 0; i < selectedPiece.transform.childCount; i++)
-        {
-            selectedPiece.transform.GetChild(i).GetComponent<MeshRenderer>().material = whitePieceM;
-        }
+        selectedPiece.deselectSelf();
         selectedPiece = null;
+    }
+    public virtual void TakePiece(Vector3 piecePos)
+    {
+        List<ChessPieceAbstract> listToSearch = null;
+        if (TeamManager.GetCurrentTurnTeam() == Team.White) listToSearch = blackPieces;
+        else if (TeamManager.GetCurrentTurnTeam() == Team.Black) listToSearch = whitePieces;
+
+        foreach(ChessPieceAbstract piece in listToSearch)
+        {
+            Debug.Log(piece.transform.position + "   " + piecePos);
+            if (piece.transform.position == piecePos)
+            {
+                listToSearch.Remove(piece);
+                Destroy(piece.gameObject);
+                return;
+            }
+        }
     }
     public virtual void StartMovingPiece(Vector3 cellPos)
     {
@@ -126,6 +134,8 @@ public abstract class PiecesController : MonoBehaviour
 
         board.setEmpty((int)selectedPiece.transform.position.x, (int)selectedPiece.transform.position.z);
         selectedPiece.transform.position = cellPos;
-        board.setOccupied((int)cellPos.x, (int)cellPos.z);
+        board.setOccupied((int)cellPos.x, (int)cellPos.z, TeamManager.GetCurrentTurnTeam());
+
+        TeamManager.NextTurn();
     }
 }

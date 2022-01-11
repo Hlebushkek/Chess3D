@@ -26,13 +26,13 @@ public class MultiplayerChessBoard : ChessBoardAbstract
         base.Highlight(piecePos, moveOffsets, t);
     }
 
-    public override void MovePiece(Vector3 cellPos)
+    public override void TryMovePiece(Vector3 cellPos)
     {
         photonView.RPC(nameof(MovePieceRPC), RpcTarget.AllBuffered, new object[] {cellPos});
     }
     [PunRPC]
     private void MovePieceRPC(Vector3 cellPos) 
     {
-        base.MovePiece(cellPos);
+        base.TryMovePiece(cellPos);
     }
 }

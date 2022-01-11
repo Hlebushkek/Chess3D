@@ -34,11 +34,19 @@ public class ClickHandle : MonoBehaviour
                 {
                     if (raycastHit.transform.TryGetComponent<ChessPieceAbstract>(out ChessPieceAbstract piece))
                     {
-                        board.HighlightCells(piece, piece.getTeam());
+                        if (CameraManager.getTeam() == piece.getTeam())
+                        {
+                            Debug.Log("Highlight");
+                            board.HighlightCells(piece, piece.getTeam());
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Not your team piece");
+                        }
                     }
                     else if (raycastHit.transform.gameObject.tag == "BoardCell")
                     {
-                        board.MovePiece(raycastHit.transform.position);
+                        board.TryMovePiece(raycastHit.transform.position);
                     }
                 }
             }

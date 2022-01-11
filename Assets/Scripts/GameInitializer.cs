@@ -23,5 +23,18 @@ public class GameInitializer : MonoBehaviour
             PhotonNetwork.Instantiate(piecesController.name, new Vector3(0, 0, 0), Quaternion.identity);
             PhotonNetwork.Instantiate(clickHandle.name, new Vector3(0, 0, 0), Quaternion.identity);
         }
+        
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        {
+            FindObjectOfType<Camera>().gameObject.AddComponent<CameraManager>().SetTeam(Team.White);
+        }
+        else if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        {
+            FindObjectOfType<Camera>().gameObject.AddComponent<CameraManager>().SetTeam(Team.Black);
+        }
+        else
+        {
+            FindObjectOfType<Camera>().gameObject.AddComponent<CameraManager>().SetTeam(Team.Spectator);
+        }
     }
 }

@@ -63,21 +63,35 @@ public abstract class ChessBoardAbstract : MonoBehaviour
                 if (x >= 0 && z >= 0 && x < 8 && z < 8)
                 {
                     //Debug.Log(x +";"+ z + "   " + boardCells[x,z].isEmpty());
-                    if (boardCells[x,z].isEmpty())
-                    {
-                        boardCells[x, z].GetComponent<MeshRenderer>().material = highlightM;
-                        highlightedCells.Add(new Vector2Int(x, z));
-                    } else break;
+                    if (boardCells[x,z].isOccupied() && boardCells[x,z].getOccupiedTeam() == team) break;
+
+                    boardCells[x, z].GetComponent<MeshRenderer>().material = highlightM;
+                    highlightedCells.Add(new Vector2Int(x, z));
+
+                    if (!boardCells[x,z].isEmpty()) break;
                 }
             }
         }
     }
-    public virtual void MovePiece(Vector3 cellPos)
+    public virtual void TryMovePiece(Vector3 cellPos)
     {
+        int x = (int)cellPos.x;
+        int z = (int)cellPos.z;
+
         if (isHighlighted(cellPos))
         {
-            piecesController.StartMovingPiece(cellPos);
-            ClearHighlight();
+            if (isEmpty(x, z))
+            {
+                piecesController.StartMovingPiece(cellPos);
+                ClearHighlight();
+            }
+            else if (isOccupied(x, z))
+            {
+                Debug.LogWarning("TakePIECE");
+                piecesController.TakePiece(cellPos);
+                piecesController.StartMovingPiece(cellPos);
+                ClearHighlight();
+            }
         }
     }
     protected void ClearHighlight()
@@ -101,14 +115,23 @@ public abstract class ChessBoardAbstract : MonoBehaviour
     {
         boardCells[x, z].setEmpty();
     }
-    public void setOccupied(int x, int z)
+    public void setOccupied(int x, int z, Team team)
     {
-        boardCells[x, z].setOccupied();
+        boardCells[x, z].setOccupied(team);
+    }
+    public bool isEmpty(int x, int z)
+    {
+        return boardCells[x, z].isEmpty();
+    }
+    public bool isOccupied(int x, int z)
+    {
+        return boardCells[x, z].isOccupied();
     }
 }
 
 public enum Team: byte 
 {
+    Empty,
     White,
     Black,
     Spectator

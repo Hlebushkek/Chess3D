@@ -376,6 +376,7 @@
 "Assets/Scripts/Board/ChessBoardAbstract.cs"
 "Assets/Scripts/Board/MultiplayerChessBoard.cs"
 "Assets/Scripts/BoardCell.cs"
+"Assets/Scripts/CameraManager.cs"
 "Assets/Scripts/ClickHandle.cs"
 "Assets/Scripts/GameInitializer.cs"
 "Assets/Scripts/MenuScript.cs"
@@ -390,6 +391,7 @@
 "Assets/Scripts/Pieces/RookPiece.cs"
 "Assets/Scripts/PiecesController.cs"
 "Assets/Scripts/SingleplayerChessBoard.cs"
+"Assets/Scripts/TeamManager.cs"
 -langversion:9.0
 
 /deterministic
