@@ -96,6 +96,8 @@ public abstract class ChessBoardAbstract : MonoBehaviour
     }
     protected void ClearHighlight()
     {
+        piecesController.ClearHighlight();
+        
         if (highlightedCells.Count < 1) return;
 
         foreach (Vector2Int cellPos in highlightedCells)
@@ -103,8 +105,6 @@ public abstract class ChessBoardAbstract : MonoBehaviour
             boardCells[cellPos.x, cellPos.y].GetComponent<MeshRenderer>().material = (cellPos.x%8+cellPos.y) % 2 == 0? blackM : whiteM;;
         }
         highlightedCells.Clear();
-
-        piecesController.ClearHighlight();
     }
     public bool isHighlighted(Vector3 cell)
     {

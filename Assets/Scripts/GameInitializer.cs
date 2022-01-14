@@ -9,8 +9,6 @@ public class GameInitializer : MonoBehaviour
     [SerializeField] private PiecesController piecesController;
     [SerializeField] private MultiplayerChessBoard multiplayerBoardPref;
     [SerializeField] private ClickHandle clickHandle;
-
-    [SerializeField] private NetworkManager networkMngr;
     private void Awake()
     {
         CreateMultiplayerBoard();
@@ -26,15 +24,15 @@ public class GameInitializer : MonoBehaviour
         
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            FindObjectOfType<Camera>().gameObject.AddComponent<CameraManager>().SetTeam(Team.White);
+            FindObjectOfType<CameraManager>().SetTeam(Team.White);
         }
         else if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
-            FindObjectOfType<Camera>().gameObject.AddComponent<CameraManager>().SetTeam(Team.Black);
+            FindObjectOfType<CameraManager>().SetTeam(Team.Black);
         }
         else
         {
-            FindObjectOfType<Camera>().gameObject.AddComponent<CameraManager>().SetTeam(Team.Spectator);
+            FindObjectOfType<CameraManager>().SetTeam(Team.Spectator);
         }
     }
 }

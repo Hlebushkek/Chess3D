@@ -20,7 +20,6 @@ public class MultiplayerChessBoard : ChessBoardAbstract
     [PunRPC]
     private void HighlightCellsRPC(Vector3 piecePos, Vector2[][] moveOffsets, byte team)
     {
-        Debug.LogWarning("PiecePos = " + piecePos);
         ClearHighlight();
         Team t = (Team)team;
         base.Highlight(piecePos, moveOffsets, t);

@@ -34,14 +34,25 @@ public class ClickHandle : MonoBehaviour
                 {
                     if (raycastHit.transform.TryGetComponent<ChessPieceAbstract>(out ChessPieceAbstract piece))
                     {
-                        if (CameraManager.getTeam() == piece.getTeam())
+                        Team whoClick = CameraManager.getTeam();
+                        Team whatClicked = piece.getTeam();
+                        Team whoseTurn = TeamManager.GetCurrentTurnTeam();
+                        if (whoClick == whatClicked && whoClick == whoseTurn)
                         {
-                            Debug.Log("Highlight");
+                            Debug.Log("Your turn, your piece");
                             board.HighlightCells(piece, piece.getTeam());
+                        }
+                        else if (whoClick == whatClicked && whoClick != whoseTurn)
+                        {
+                            Debug.Log("Not your turn, your piece");
+                        }
+                        else if (whoClick != whatClicked && whoClick == whoseTurn)
+                        {
+                            Debug.Log("Your turn, not your piece");
                         }
                         else
                         {
-                            Debug.LogWarning("Not your team piece");
+                            Debug.Log("Not your turn, not your piece");
                         }
                     }
                     else if (raycastHit.transform.gameObject.tag == "BoardCell")
