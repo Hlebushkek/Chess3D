@@ -5,24 +5,35 @@ using UnityEngine;
 public abstract class ChessPieceAbstract : MonoBehaviour
 {
     private Material standardMaterial, highlightMaterial;
-    protected Vector2[][] moveOffsets;
+    protected Vector2[][] moveOffsets, attackOffsets;
     protected Team team;
-    protected abstract void Start();
+    protected virtual void Start()
+    {
+        attackOffsets = moveOffsets;
+    }
+    public virtual void AfterMove()
+    {
+        
+    }
+    public virtual void OnDeath()
+    {
+
+    }
     public Vector2[][] GetMoveOffsets() {
         return moveOffsets;
     }
-    public void SetMaterials(Material standardM, Material highlightM)
+    public Vector2[][] GetAttackOffsets() {
+        return attackOffsets;
+    }
+    public void InitPiece(Material standardM, Material highlightM, Team t)
     {
         standardMaterial = standardM;
         highlightMaterial = highlightM;
+        team = t;
     }
     public Team getTeam()
     {
         return team;
-    }
-    public void setTeam(Team t)
-    {
-        team = t;
     }
     public void selectSelf() 
     {
@@ -38,4 +49,5 @@ public abstract class ChessPieceAbstract : MonoBehaviour
             this.transform.GetChild(i).GetComponent<MeshRenderer>().material = standardMaterial;
         }
     }
+
 }

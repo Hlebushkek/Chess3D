@@ -20,5 +20,7 @@ public class RookPiece : ChessPieceAbstract
             moveOffsets[2][i-1] = new Vector2(i, 0);
             moveOffsets[3][i-1] = new Vector2(-i, 0);
         }
+
+        base.Start();
     }
 }

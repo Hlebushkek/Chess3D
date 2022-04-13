@@ -20,5 +20,7 @@ public class BishopPiece : ChessPieceAbstract
             moveOffsets[2][i-1] = new Vector2(i, -i);
             moveOffsets[3][i-1] = new Vector2(-i, -i);
         }
+
+        base.Start();
     }
 }

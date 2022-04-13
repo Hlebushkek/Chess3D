@@ -70,4 +70,5 @@ MonoBehaviour:
   boardCell: {fileID: 5188805291941184359, guid: c89f2665d52e14ee79fdd697f3de6b19, type: 3}
   blackM: {fileID: 2100000, guid: 0e3842bef08b8413d9b1134ea6c308f3, type: 2}
   whiteM: {fileID: 2100000, guid: 712a4e641f57941f6872b4d994f50a5f, type: 2}
-  highlightM: {fileID: 2100000, guid: 76ebb7454f7ed4793af11284ce41f14c, type: 2}
+  moveHighlightM: {fileID: 2100000, guid: ae3688ece65ae452795774693bcf9b08, type: 2}
+  attackHighlightM: {fileID: 2100000, guid: ae9088d6b5cd74ba8a0ade4e30ffe52d, type: 2}

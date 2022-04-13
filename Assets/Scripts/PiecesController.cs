@@ -54,17 +54,16 @@ public abstract class PiecesController : MonoBehaviour
     private void InstantiatePiece(ChessPieceAbstract piece, Vector3 position, Team team)
     {
         var obj = Instantiate(piece);
-        obj.setTeam(team);
 
         if (team == Team.White)
         {
-            obj.SetMaterials(whitePieceM, highlightM);
+            obj.InitPiece(whitePieceM, highlightM, team);
             obj.transform.SetParent(this.transform.GetChild(0));
             whitePieces.Add(obj);
         }
         else if (team == Team.Black)
         {
-            obj.SetMaterials(blackPieceM, highlightM);
+            obj.InitPiece(blackPieceM, highlightM, team);
             obj.transform.SetParent(this.transform.GetChild(1));
             blackPieces.Add(obj);
         }
@@ -118,6 +117,7 @@ public abstract class PiecesController : MonoBehaviour
             Debug.Log(piece.transform.position + "   " + piecePos);
             if (piece.transform.position == piecePos)
             {
+                piece.OnDeath();
                 listToSearch.Remove(piece);
                 Destroy(piece.gameObject);
                 return;
@@ -135,6 +135,8 @@ public abstract class PiecesController : MonoBehaviour
         board.setEmpty((int)selectedPiece.transform.position.x, (int)selectedPiece.transform.position.z);
         selectedPiece.transform.position = cellPos;
         board.setOccupied((int)cellPos.x, (int)cellPos.z, TeamManager.GetCurrentTurnTeam());
+
+        selectedPiece.AfterMove();
 
         TeamManager.NextTurn();
     }

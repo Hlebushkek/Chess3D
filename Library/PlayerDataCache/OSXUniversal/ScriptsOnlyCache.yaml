@@ -1208,7 +1208,7 @@ ScriptsOnlyBuild:
     className: IntInputField
   - hash:
       serializedVersion: 2
-      Hash: 6686ff275b66e8080b073c514984bec1
+      Hash: 34ddf7dc761c7d66ddd6071942663310
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SingleplayerChessBoard
@@ -1220,7 +1220,7 @@ ScriptsOnlyBuild:
     className: Line
   - hash:
       serializedVersion: 2
-      Hash: 6686ff275b66e8080b073c514984bec1
+      Hash: 34ddf7dc761c7d66ddd6071942663310
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MultiplayerChessBoard
@@ -2022,6 +2022,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EndRoundManager
   platform: 2
   scenePathNames:
   - Assets/Scenes/MenuScene.unity

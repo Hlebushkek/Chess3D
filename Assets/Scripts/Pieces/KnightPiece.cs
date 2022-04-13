@@ -17,5 +17,7 @@ public class KnightPiece : ChessPieceAbstract
             new Vector2[] {new Vector2(1, -2)},
             new Vector2[] {new Vector2(-1, -2)}
         };
+
+        base.Start();
     }
 }

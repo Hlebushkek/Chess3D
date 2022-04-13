@@ -25,5 +25,6 @@ public class QueenPiece : ChessPieceAbstract
             moveOffsets[7][i-1] = new Vector2(-i, -i);
         }
         
+        base.Start();
     }
 }
